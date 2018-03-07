@@ -1,0 +1,15 @@
+---
+# tasks file for libev
+- name: Download libev
+  git:
+    repo={{ libev_url }}
+    dest={{ builddir }}/libev
+    version=master
+    force=yes
+
+- name: build libev
+  shell:
+    cd {{ builddir }}/libev;
+    ./configure --prefix={{ installdir }};
+    make;
+    make install

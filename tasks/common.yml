@@ -1,0 +1,25 @@
+---
+# tasks file for common
+- name: make top dir
+  file:
+    dest={{ topdir }}
+    state=directory
+    mode=0755
+
+- name: make build dir
+  file:
+    dest={{ builddir }}
+    state=directory
+    mode=0755
+
+- name: make pkgs dir
+  file:
+    dest={{ pkgsdir }}
+    state=directory
+    mode=0755
+
+- name: make output dir
+  file:
+    dest={{ outputdir }}
+    state=directory
+    mode=0755

@@ -1,0 +1,4 @@
+---
+# handlers file for web-caliper
+- import_tasks: nginx.yml
+  when: build_nginx | bool

@@ -1,0 +1,36 @@
+---
+# defaults file for web-caliper
+build_nginx: false
+build_libev: false
+build_httpress: false
+
+# defaults file for common
+topdir: /local/ansible
+builddir: "{{ topdir }}/build"
+pkgsdir: "{{ topdir }}/pkgs"
+installdir: "{{ topdir }}/install"
+outputdir: "{{ topdir }}/output"
+
+# defaults file for nginx
+nginx_url: http://nginx.org/download/nginx-1.13.9.tar.gz
+nginx_user: "{{ ansible_user_id }}"
+
+# nginx.conf
+nginx_worker_processes: "{{ ansible_processor_count }}"
+nginx_pid_path: /run/nginx.pid
+nginx_worker_connections: 1024
+nginx_keepalive_timeout: 65
+nginx_listen_port: 80
+nginx_server_name: nginx-server
+
+# defaults file for libev
+libev_url: https://github.com/enki/libev.git
+
+# defaults file for httpress
+httpress_url: https://bitbucket.org/yarosla/httpress/get/f27fa1949044.zip
+httpress_dir: yarosla-httpress-f27fa1949044
+
+# benchmark
+threads: 8
+connections: 32
+requests: 128000

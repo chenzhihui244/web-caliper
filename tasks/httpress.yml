@@ -1,0 +1,27 @@
+---
+# tasks file for httpress
+
+- name: Install dependencies for Ubuntu
+  apt:
+    name=unzip,libgnutls-dev
+    state=present
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Download httpress
+  get_url:
+    url={{ httpress_url }}
+    dest={{ pkgsdir }}/httpress.zip
+
+- name: Unzip httpress
+  shell:
+    cd {{ topdir }};
+    unzip -o pkgs/httpress.zip -d build
+
+- name: Build httpress
+  shell:
+    cd {{ builddir }}/{{ httpress_dir }};
+    sed -i "s;\(^CFLAGS_RELEASE.*\);\1 -I{{ installdir }}/include;" Makefile;
+    sed -i "s;\(^LIBS.*\);\1 -L{{ installdir }}/lib;" Makefile;
+    make;
+    mkdir -p {{ installdir }}/bin;
+    cp bin/Release/httpress {{ installdir }}/bin/

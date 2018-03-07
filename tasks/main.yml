@@ -1,0 +1,13 @@
+---
+# tasks file for web-caliper
+
+- import_tasks: common.yml
+
+- import_tasks: nginx.yml
+  when: build_nginx | bool
+
+- import_tasks: libev.yml
+  when: build_libev | bool
+
+- import_tasks: httpress.yml
+  when: build_httpress | bool
