@@ -1,8 +1,13 @@
 ---
 # defaults file for web-caliper
-build_nginx: false
-build_libev: false
-build_httpress: false
+
+server_app: nginx
+client_app: httpress
+
+build_server: false
+build_client: false
+
+test_case: webserver
 
 # defaults file for common
 topdir: /local/ansible
@@ -11,8 +16,14 @@ pkgsdir: "{{ topdir }}/pkgs"
 installdir: "{{ topdir }}/install"
 outputdir: "{{ topdir }}/output"
 
+#
+http_port: 80
+https_port: 44301
+
 # defaults file for nginx
 nginx_url: http://nginx.org/download/nginx-1.13.9.tar.gz
+nginx_file: nginx-1.13.9.tar.gz
+nginx_dir: nginx-1.13.9
 nginx_user: "{{ ansible_user_id }}"
 
 # nginx.conf
@@ -20,7 +31,6 @@ nginx_worker_processes: "{{ ansible_processor_count }}"
 nginx_pid_path: /run/nginx.pid
 nginx_worker_connections: 1024
 nginx_keepalive_timeout: 65
-nginx_listen_port: 80
 nginx_server_name: nginx-server
 
 # defaults file for libev

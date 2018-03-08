@@ -1,4 +1,4 @@
 ---
 # handlers file for web-caliper
-- import_tasks: nginx.yml
-  when: build_nginx | bool
+- include_tasks: "{{ server_app }}.yml"
+  when: build_server | bool

@@ -1,6 +1,10 @@
 ---
 # tasks file for nginx
 
+- import_tasks: common.yml
+
+- import_tasks: ca.yml
+
 - name: Download nginx
   get_url:
     url={{ nginx_url }}
@@ -8,13 +12,13 @@
 
 - name: unarchive nginx
   unarchive:
-    src={{ pkgsdir }}/nginx-1.13.9.tar.gz
+    src={{ pkgsdir }}/{{ nginx_file }}
     dest={{ builddir }}
     remote_src=yes
 
 - name: build nginx
   shell:
-    cd {{ builddir }}/nginx-1.13.9;
+    cd {{ builddir }}/{{ nginx_dir }};
     ./configure --with-http_ssl_module --prefix={{ installdir }};
     make -j{{ ansible_processor_count }};
     make install
@@ -23,7 +27,7 @@
   template: src=nginx/nginx.service dest=/lib/systemd/system/nginx.service
 
 - name: Copy nginx configuration for webserver
-  template: src=nginx/nginx.conf.webserver dest={{ installdir }}/conf/nginx.conf
+  template: src=nginx/nginx.conf.{{ test_case }} dest={{ installdir }}/conf/nginx.conf
   notify: restart nginx
 
 - name: http service state

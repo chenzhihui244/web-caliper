@@ -31,14 +31,22 @@ http {
     #gzip  on;
 
     server {
-	listen {{ http_port }};
+	listen {{ https_port }} ssl;
         server_name  {{ nginx_server_name }};
+        #listen       44301 ssl;
+
+	ssl_certificate nginx.crt;
+	ssl_certificate_key nginx.key;
+
+        #charset koi8-r;
 
         location / {
             root   html;
             index  index.html index.htm;
         }
 
+        # redirect server error pages to the static page /50x.html
+        #
         error_page   500 502 503 504  /50x.html;
         location = /50x.html {
             root   html;

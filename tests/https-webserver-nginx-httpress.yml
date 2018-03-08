@@ -1,0 +1,27 @@
+---
+- hosts: web-client
+
+  roles:
+    - { role: web-caliper, test_case: https-webserver, server_app: nginx, client_app: httpress, build_client: true }
+
+  vars:
+    target_url: "https://{{ groups['web-server'][0] }}:{{ https_port }}/index.html"
+    test_case: https-webserver
+    log_file: "{{ test_case }}-{{ server_app }}-{{ client_app }}.log"
+
+  tasks:
+  - name: preparation
+    shell:
+      ulimit -n {{ connections }}
+      
+  - name: httpress https webserver benchmark
+    shell:
+      export LD_LIBRARY_PATH={{ installdir }}/lib:$LD_LIBRARY_PATH;
+      {{ installdir }}/bin/httpress -n {{ requests }} -c {{ connections }} -t {{ threads }} {{ target_url }} > {{ outputdir }}/{{ log_file }}
+
+  - name: fetch result
+    fetch:
+      src={{ outputdir }}/{{ log_file }}
+      dest=/tmp/{{ log_file }}
+      flat=yes
+

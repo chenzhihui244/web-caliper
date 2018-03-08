@@ -1,5 +1,8 @@
 ---
 # tasks file for libev
+
+- import_tasks: common.yml
+
 - name: Download libev
   git:
     repo={{ libev_url }}
