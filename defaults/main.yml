@@ -41,6 +41,9 @@ libev_url: https://github.com/enki/libev.git
 httpress_url: https://bitbucket.org/yarosla/httpress/get/f27fa1949044.zip
 httpress_dir: yarosla-httpress-f27fa1949044
 
+# weighttp
+weighttp_url: git://git.lighttpd.net/weighttp
+
 # benchmark
 threads: 8
 connections: 32

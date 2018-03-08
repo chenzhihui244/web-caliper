@@ -1,0 +1,31 @@
+---
+- hosts: web-client
+
+  roles:
+  - role: web-caliper
+    server_app: 'nginx'
+    client_app: 'weighttp'
+      
+  vars:
+    target_url: "http://{{ groups['web-server'][0] }}/index.html"
+    test_case: webserver
+    server_app: 'nginx'
+    client_app: 'weighttp'
+    log_file: "{{ test_case }}-{{ server_app }}-{{ client_app }}.log"
+
+  tasks:
+  - name: preparation
+    shell:
+      ulimit -n {{ connections }}
+      
+  - name: httpress webserver benchmark
+    shell:
+      export LD_LIBRARY_PATH={{ installdir }}/lib:$LD_LIBRARY_PATH;
+      {{ installdir }}/bin/httpress -n {{ requests }} -c {{ connections }} -t {{ threads }} {{ target_url }} > {{ outputdir }}/{{ log_file }}
+
+  - name: fetch result
+    fetch:
+      src={{ outputdir }}/{{ log_file }}
+      dest=/tmp/{{ log_file }}
+      flat=yes
+

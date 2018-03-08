@@ -27,41 +27,41 @@ Including an example of how to use your role (for instance, with variables passe
       roles:
          - { role: username.rolename, x: 42 }
 
-1. Webserver nginx+httpress:
-	build server:
-	ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/nginx-webserver.yml
-	build httpress:
-	ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/httpress.yml
-	benchmark:
-	ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/webserver-nginx-httpress.yml
+	1. Webserver nginx+httpress:
+		build server:
+		ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/nginx-webserver.yml
+		build httpress:
+		ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/httpress.yml
+		benchmark:
+		ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/webserver-nginx-httpress.yml
 
-2. Https webserver nginx+httpress:
-	build server:
-	ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/nginx-https-webserver.yml
-	build httpress:
-	ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/httpress.yml
-	benchmark:
-	ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/https-webserver-nginx-httpress.yml
-	
-3. Proxy nginx+httpress:
-	build server:
-	ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/nginx-webserver.yml
-	build proxy:
-	ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/nginx-proxy.yml
-	build httpress:
-	ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/httpress.yml
-	benchmark:
-	ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/proxy-nginx-httpress.yml
-	
-4. Proxy nginx+httpress:
-	build server:
-	ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/nginx-webserver.yml
-	build proxy:
-	ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/nginx-https-proxy.yml
-	build httpress:
-	ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/httpress.yml
-	benchmark:
-	ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/https-proxy-nginx-httpress.yml
+	2. Https webserver nginx+httpress:
+		build server:
+		ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/nginx-https-webserver.yml
+		build httpress:
+		ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/httpress.yml
+		benchmark:
+		ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/https-webserver-nginx-httpress.yml
+		
+	3. Proxy nginx+httpress:
+		build server:
+		ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/nginx-webserver.yml
+		build proxy:
+		ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/nginx-proxy.yml
+		build httpress:
+		ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/httpress.yml
+		benchmark:
+		ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/proxy-nginx-httpress.yml
+		
+	4. Proxy nginx+httpress:
+		build server:
+		ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/nginx-webserver.yml
+		build proxy:
+		ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/nginx-https-proxy.yml
+		build httpress:
+		ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/httpress.yml
+		benchmark:
+		ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/https-proxy-nginx-httpress.yml
 
 License
 -------

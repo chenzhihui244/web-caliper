@@ -1,0 +1,5 @@
+---
+- hosts: web-client
+  remote_user: root
+  roles:
+    - { role: web-caliper, build_client: true, client_app: weighttp }

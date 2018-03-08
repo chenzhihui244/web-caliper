@@ -1,0 +1,20 @@
+---
+# tasks file for weighttp
+
+- import_tasks: common.yml
+
+- import_tasks: libev.yml
+
+- name: Download weighttp
+  git:
+    repo={{ weighttp_url }}
+    dest={{ builddir }}/weighttp
+    version=weighttp-0.4
+    force=yes
+
+- name: Build weighttp
+  shell:
+    cd {{ builddir }}/weighttp;
+    LINKFLAGS=-L{{ installdir }}/lib CFLAGS=-I{{ installdir }}/include ./waf configure --prefix={{ installdir }};
+    ./waf build;
+    ./waf install
