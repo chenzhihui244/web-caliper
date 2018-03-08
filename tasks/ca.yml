@@ -2,4 +2,4 @@
 # tasks file for nginx
 
 - name: make ca
-  script: make-ca.sh {{ installdir }}
+  script: make-ca.sh {{ installdir }} {{ certificate }}

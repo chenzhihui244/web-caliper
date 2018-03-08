@@ -1,0 +1,6 @@
+---
+- hosts: proxy-server
+  remote_user: root
+  roles:
+    - { role: web-caliper, test_case: proxy, build_server: true, server_app: nginx }
+

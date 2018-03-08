@@ -1,0 +1,53 @@
+user  {{ nginx_user }};
+
+worker_processes  {{ nginx_worker_processes }};
+worker_cpu_affinity auto;
+
+error_log  logs/error.log;
+
+pid        {{ nginx_pid_path }};
+
+events {
+    worker_connections  {{ nginx_worker_connections }};
+    multi_accept on;
+    use epoll;
+}
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    access_log    /dev/null;
+    error_log     /dev/null;
+
+    sendfile        on;
+    sendfile_max_chunk 512k;
+
+    tcp_nopush     on;
+    tcp_nodelay    on;
+
+    keepalive_timeout  {{ nginx_keepalive_timeout }};
+
+    #gzip  on;
+
+    upstream backend {
+        server {{ groups['web-server'][0] }}:{{ http_port }};
+        #keepalive 300;
+    }
+
+	server {
+           listen {{ http_port }};
+           server_name {{ nginx_server_name }};
+
+	   location  / {
+           #proxy_set_header Host $host;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header X-Forwarded-Host $Host;
+           proxy_set_header X-Forwarded-Prot $Scheme;
+           proxy_pass   http://backend;
+           proxy_cache off;
+           proxy_http_version 1.1;
+	   }
+	}
+}

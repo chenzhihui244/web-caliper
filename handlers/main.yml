@@ -2,3 +2,6 @@
 # handlers file for web-caliper
 - include_tasks: "{{ server_app }}.yml"
   when: build_server | bool
+
+- name: restart nginx
+  service: name=nginx state=restarted enabled=yes

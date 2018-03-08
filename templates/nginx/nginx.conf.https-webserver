@@ -35,8 +35,8 @@ http {
         server_name  {{ nginx_server_name }};
         #listen       44301 ssl;
 
-	ssl_certificate nginx.crt;
-	ssl_certificate_key nginx.key;
+	ssl_certificate {{ certificate }}.crt;
+	ssl_certificate_key {{ certificate }}.key;
 
         #charset koi8-r;
 

@@ -5,8 +5,8 @@
     - { role: web-caliper, server_app: nginx, client_app: httpress }
 
   vars:
-    target_url: "http://{{ groups['web-server'][0] }}/index.html"
-    test_case: webserver
+    target_url: "http://{{ groups['proxy-server'][0] }}/index.html"
+    test_case: proxy
     log_file: "{{ test_case }}-{{ server_app }}-{{ client_app }}.log"
 
   tasks:

@@ -19,6 +19,7 @@ outputdir: "{{ topdir }}/output"
 #
 http_port: 80
 https_port: 44301
+certificate: web-cert
 
 # defaults file for nginx
 nginx_url: http://nginx.org/download/nginx-1.13.9.tar.gz

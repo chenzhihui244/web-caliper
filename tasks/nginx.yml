@@ -5,6 +5,18 @@
 
 - import_tasks: ca.yml
 
+- name: install dependencies of Redhat
+  yum:
+    name=zlib,zlib-devel,openssl,openssl-devel,pcre,pcre-devel
+    state=present
+  when: ansible_distribution == 'Redhat'
+
+- name: install dependencies of Ubuntu
+  apt:
+    name=libpcre3,libpcre3-dev,libssl-dev,zlib1g-dev
+    state=present
+  when: ansible_distribution == 'Ubuntu'
+
 - name: Download nginx
   get_url:
     url={{ nginx_url }}
