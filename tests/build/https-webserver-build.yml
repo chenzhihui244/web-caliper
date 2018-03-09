@@ -1,0 +1,16 @@
+---
+- hosts: "{{ test_case }}-server"
+  remote_user: root
+  roles:
+    - role: web-caliper
+      test_case: "{{ test_case }}"
+      build_server: true
+      server_app: "{{ server_app }}"
+
+- hosts: "{{ test_case }}-client"
+  remote_user: root
+  roles:
+    - role: web-caliper
+      test_case: "{{ test_case }}"
+      build_client: true
+      client_app: "{{ client_app }}"

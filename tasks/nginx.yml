@@ -41,6 +41,27 @@
 - name: Copy nginx configuration for webserver
   template: src=nginx/nginx.conf.{{ test_case }} dest={{ installdir }}/conf/nginx.conf
   notify: restart nginx
+  when: "test_case != 'proxy' and test_case != 'https-proxy'"
+
+- name: Copy nginx configuration for webserver
+  template: src=nginx/nginx.conf.proxy dest={{ installdir }}/conf/nginx.conf
+  notify: restart nginx
+  when: "test_case == 'proxy' and build_proxy == true"
+
+- name: Copy nginx configuration for webserver
+  template: src=nginx/nginx.conf.https-proxy dest={{ installdir }}/conf/nginx.conf
+  notify: restart nginx
+  when: "test_case == 'https-proxy' and build_proxy == true"
+
+- name: Copy nginx configuration for webserver
+  template: src=nginx/nginx.conf.webserver dest={{ installdir }}/conf/nginx.conf
+  notify: restart nginx
+  when: "test_case == 'proxy' and build_server == true"
+
+- name: Copy nginx configuration for webserver
+  template: src=nginx/nginx.conf.webserver dest={{ installdir }}/conf/nginx.conf
+  notify: restart nginx
+  when: "test_case == 'https-proxy' and build_server == true"
 
 - name: http service state
   service: name=nginx state=started enabled=yes

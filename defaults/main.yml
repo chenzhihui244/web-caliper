@@ -2,10 +2,12 @@
 # defaults file for web-caliper
 
 server_app: nginx
+proxy_app: nginx
 client_app: httpress
 
 build_server: false
 build_client: false
+build_proxy: false
 
 test_case: webserver
 

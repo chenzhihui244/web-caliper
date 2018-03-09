@@ -1,16 +1,12 @@
 ---
-- hosts: web-client
+- hosts: webserver-client
 
   roles:
-  - role: web-caliper
-    server_app: 'nginx'
-    client_app: 'weighttp'
-      
+    - { role: web-caliper, server_app: nginx, client_app: httpress }
+
   vars:
-    target_url: "http://{{ groups['web-server'][0] }}/index.html"
-    test_case: webserver
-    server_app: 'nginx'
-    client_app: 'weighttp'
+    target_url: "http://{{ groups['proxy-proxy'][0] }}/index.html"
+    test_case: proxy
     log_file: "{{ test_case }}-{{ server_app }}-{{ client_app }}.log"
 
   tasks:
@@ -28,4 +24,3 @@
       src={{ outputdir }}/{{ log_file }}
       dest=/tmp/{{ log_file }}
       flat=yes
-

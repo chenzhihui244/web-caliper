@@ -31,7 +31,7 @@ http {
     #gzip  on;
 
     upstream backend {
-        server {{ groups['web-server'][0] }}:{{ http_port }};
+        server {{ groups['proxy-server'][0] }}:{{ http_port }};
         #keepalive 300;
     }
 

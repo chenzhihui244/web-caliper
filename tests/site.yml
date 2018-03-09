@@ -1,0 +1,12 @@
+---
+- import_playbook: "build/{{ test_case }}-build.yml"
+#- import_playbook: "{{ client_app }}.yml"
+
+#- import_playbook: "{{ server_app }}-{{ test_case }}.yml"
+
+#- import_playbook: "{{ server_app }}-webserver.yml"
+#  when: "test_case == 'proxy'" 
+
+#- import_playbook: "{{ server_app }}-webserver.yml"
+#  when: test_case == "https-proxy" 
+

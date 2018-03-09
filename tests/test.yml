@@ -1,5 +1,2 @@
 ---
-- hosts: web-server
-  remote_user: root
-  roles:
-    - web-caliper
+- import_playbook: "benchmark/{{ test_case }}-{{ server_app }}-{{ client_app }}.yml"

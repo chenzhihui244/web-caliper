@@ -1,8 +1,29 @@
 localhost
 
-[web-server]
+# webserver case
+[webserver-server]
 192.168.1.193
-[web-client]
+[webserver-client]
 192.168.1.198
+
+# https-webserver case
+[https-webserver-server:children]
+webserver-server
+[https-webserver-client:children]
+webserver-client
+
+# proxy case
 [proxy-server]
+192.168.1.198
+[proxy-proxy]
 192.168.1.193
+[proxy-client]
+192.168.1.198
+
+# https proxy case
+[https-proxy-server:children]
+proxy-server
+[https-proxy-proxy:children]
+proxy-proxy
+[https-proxy-client:children]
+proxy-client

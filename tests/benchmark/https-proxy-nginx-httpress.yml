@@ -1,12 +1,12 @@
 ---
-- hosts: web-client
+- hosts: webserver-client
 
   roles:
-    - { role: web-caliper, server_app: nginx, client_app: httpress }
+    - { role: web-caliper, test_case: https-proxy, server_app: nginx, client_app: httpress }
 
   vars:
-    target_url: "http://{{ groups['web-server'][0] }}/index.html"
-    test_case: webserver
+    target_url: "https://{{ groups['proxy-proxy'][0] }}:{{ https_port }}/index.html"
+    test_case: https-proxy
     log_file: "{{ test_case }}-{{ server_app }}-{{ client_app }}.log"
 
   tasks:
@@ -14,7 +14,7 @@
     shell:
       ulimit -n {{ connections }}
       
-  - name: httpress webserver benchmark
+  - name: httpress https proxy benchmark
     shell:
       export LD_LIBRARY_PATH={{ installdir }}/lib:$LD_LIBRARY_PATH;
       {{ installdir }}/bin/httpress -n {{ requests }} -c {{ connections }} -t {{ threads }} {{ target_url }} > {{ outputdir }}/{{ log_file }}

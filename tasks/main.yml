@@ -7,3 +7,5 @@
 - include_tasks: "{{ client_app }}.yml"
   when: build_client | bool
 
+- include_tasks: "{{ proxy_app }}.yml"
+  when: build_proxy | bool

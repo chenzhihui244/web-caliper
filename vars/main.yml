@@ -1,2 +1,24 @@
 ---
 # vars file for web-caliper
+test_cases: [
+  webserver
+  https-webserver
+  proxy
+  https-proxy
+]
+
+test_roles: [
+  server
+  client
+  proxy
+]
+
+server_apps: [
+  nginx
+  apache
+]
+
+client_apps: [
+  httpress
+  weighttp
+]
