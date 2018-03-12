@@ -38,11 +38,17 @@ Including an example of how to use your role (for instance, with variables passe
       benchmark:
         ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/test.yml -e "test_case=proxy server_app=nginx client_app=httpress"
 
-    1. Https webserver nginx+httpress:
+    3. Https webserver nginx+httpress:
       build server and client:
         ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/site.yml -e "test_case=https-webserver server_app=nginx client_app=httpress"
       benchmark:
         ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/test.yml -e "test_case=https-webserver server_app=nginx client_app=httpress"
+
+    4. Dynamic webserver: nginx+php+httpress:
+      build nginx php httpress:
+        ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/site.yml -e "test_case=webserver-dynamic server_app=nginx client_app=httpress"
+      benchmark:
+        ansible-playbook -i web-caliper/tests/inventory web-caliper/tests/test.yml -e "test_case=webserver-dynamic server_app=nginx client_app=httpress"
 
 License
 -------

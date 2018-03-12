@@ -15,7 +15,7 @@
     test_case: webserver
     server_app: 'nginx'
     client_app: 'weighttp'
-      
+
   vars:
     target_url: "http://{{ groups['webserver-server'][0] }}/index.html"
     server_app: 'nginx'
@@ -23,10 +23,6 @@
     log_file: "{{ test_case }}-{{ server_app }}-{{ client_app }}.log"
 
   tasks:
-  - name: preparation
-    shell:
-      ulimit -n {{ connections }}
-      
   - name: httpress webserver benchmark
     shell:
       export LD_LIBRARY_PATH={{ installdir }}/lib:$LD_LIBRARY_PATH;

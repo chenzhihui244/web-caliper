@@ -46,6 +46,9 @@ httpress_dir: yarosla-httpress-f27fa1949044
 # weighttp
 weighttp_url: git://git.lighttpd.net/weighttp
 
+# php
+php_url: https://github.com/php/php-src.git
+
 # benchmark
 threads: 8
 connections: 32

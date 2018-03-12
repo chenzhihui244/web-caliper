@@ -1,0 +1,35 @@
+---
+- import_tasks: common.yml
+
+- name: Downlaod php
+  git:
+    repo={{ php_url }}
+    dest={{ builddir }}/php
+    version=php-7.2.3
+
+- name: Build php
+  shell:
+    cd {{ builddir }}/php;
+    ./buildconf --force
+    ./configure --prefix={{ installdir }} --enable-fpm --enable-sockets --enable-opcache --disable-debug;
+    make -j{{ ansible_processor_count }};
+    make install
+
+- name: install php service
+  shell:
+    cp {{ builddir }}/php/sapi/fpm/php-fpm.service /lib/systemd/system/
+
+- name: Copy php www configuration for webserver
+  file: src=php/www.conf dest={{ installdir }}/etc/php-fpm.d/www.conf
+
+- name: Copy php configuration for webserver
+  template:
+      src=php/php-fpm.conf
+      dest={{ installdir }}/etc/php-fpm.conf
+  notify: restart php
+
+- name: enable php service
+  service:
+      name=php-fpm
+      state=started
+      enabled=yes

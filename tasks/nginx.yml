@@ -5,6 +5,9 @@
 
 - import_tasks: ca.yml
 
+- include_tasks: php.yml
+  when: "test_case == 'webserver-dynamic'"
+
 - name: install dependencies of Redhat
   yum:
     name=zlib,zlib-devel,openssl,openssl-devel,pcre,pcre-devel
@@ -37,6 +40,15 @@
 
 - name: Copy nginx service file
   template: src=nginx/nginx.service dest=/lib/systemd/system/nginx.service
+
+- name: Copy nginx index.html
+  template: src=nginx/index.html dest={{ installdir }}/html/index.html
+
+- include_tasks: sysconf.yml
+
+- name: Copy nginx index.php
+  template: src=nginx/index.php dest={{ installdir }}/html/index.php
+  when: "test_case == 'webserver-dynamic'"
 
 - name: Copy nginx configuration for webserver
   template: src=nginx/nginx.conf.{{ test_case }} dest={{ installdir }}/conf/nginx.conf

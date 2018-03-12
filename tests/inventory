@@ -6,6 +6,12 @@ localhost
 [webserver-client]
 192.168.1.198
 
+# webserver-dynamic case
+[webserver-dynamic-server:children]
+webserver-server
+[webserver-dynamic-client:children]
+webserver-client
+
 # https-webserver case
 [https-webserver-server:children]
 webserver-server

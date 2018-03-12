@@ -10,10 +10,6 @@
     log_file: "{{ test_case }}-{{ server_app }}-{{ client_app }}.log"
 
   tasks:
-  - name: preparation
-    shell:
-      ulimit -n {{ connections }}
-      
   - name: httpress webserver benchmark
     shell:
       export LD_LIBRARY_PATH={{ installdir }}/lib:$LD_LIBRARY_PATH;

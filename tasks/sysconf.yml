@@ -1,0 +1,22 @@
+---
+- name: ulimit
+  shell:
+      ulimit -n 102400
+
+- name: TCP_TW_REUSE
+  shell:
+    echo 1 > /proc/sys/net/ipv4/tcp_tw_reuse
+
+  #- lineinfile:
+  #create=yes
+  #path=/etc/sysctl.conf line="net.ipv4.tcp_tw_reuse = 1" state=present
+
+- name: TCP_TW_RECYCLE
+  shell:
+    echo 1 > /proc/sys/net/ipv4/tcp_tw_recycle
+
+  #- lineinfile:
+  #create=yes
+  #path=/etc/sysctl.conf
+  #line="net.ipv4.tcp_tw_recycle = 1"
+  #state=present
