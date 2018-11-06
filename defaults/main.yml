@@ -43,6 +43,9 @@ libev_url: https://github.com/enki/libev.git
 httpress_url: https://bitbucket.org/yarosla/httpress/get/f27fa1949044.zip
 httpress_dir: yarosla-httpress-f27fa1949044
 
+# default file for wrk
+wrk_dir: wrk
+
 # weighttp
 weighttp_url: git://git.lighttpd.net/weighttp
 
@@ -50,6 +53,6 @@ weighttp_url: git://git.lighttpd.net/weighttp
 php_url: https://github.com/php/php-src.git
 
 # benchmark
-threads: 8
-connections: 32
+threads: 16
+connections: 128
 requests: 128000

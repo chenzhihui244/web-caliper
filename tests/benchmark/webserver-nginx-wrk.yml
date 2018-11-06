@@ -1,0 +1,33 @@
+---
+- hosts: webserver-server
+  tasks:
+  - name: Start server
+    service:
+      name=nginx
+      state=started
+      enabled=yes
+
+- hosts: webserver-client
+
+  roles:
+  - role: web-caliper
+    server_app: nginx
+    client_app: wrk
+
+  vars:
+    target_url: "http://{{ groups['webserver-server'][0] }}/index.html"
+    test_case: webserver
+    log_file: "{{ test_case }}-{{ server_app }}-{{ client_app }}-{{ threads }}-{{ connections }}.log"
+
+  tasks:
+
+  - name: wrk webserver benchmark
+    shell:
+      export LD_LIBRARY_PATH={{ installdir }}/lib:$LD_LIBRARY_PATH;
+      numactl -C 32-63 --localalloc {{ installdir }}/bin/wrk -c {{ connections }} -t {{ threads }} -d 120s {{ target_url }} > {{ outputdir }}/{{ log_file }}
+
+  - name: fetch result
+    fetch:
+      src={{ outputdir }}/{{ log_file }}
+      dest=/tmp/{{ log_file }}
+      flat=yes

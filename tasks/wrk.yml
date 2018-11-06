@@ -1,0 +1,18 @@
+---
+
+# task file for wrk
+
+- import_tasks: common.yml
+
+- name: clone wrk repo
+  git:
+          repo=https://github.com/wg/wrk.git
+          dest={{ builddir }}/wrk
+
+- name: Build wrk
+  shell:
+          cd {{ builddir }}/{{ wrk_dir }};
+          make;
+          mkdir -p {{ installdir }}/bin;
+          cp wrk {{ installdir }}/bin
+
