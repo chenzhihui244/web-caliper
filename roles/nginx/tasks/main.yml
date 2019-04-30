@@ -1,0 +1,39 @@
+---
+# tasks file for nginx
+
+- name: disable firewall
+  service:
+      state: stopped
+      name: firewalld
+      enabled: no
+
+- name: install nginx
+  yum:
+      state: present
+      name: ['nginx']
+  when: ansible_distribution == "CentOS"
+
+- name: start nginx
+  service:
+      state: started
+      name: nginx
+      enabled: yes
+
+- name: Copy nginx configuration for proxy test
+  template: src=conf/nginx.conf.proxy dest={{ nginx_conf_path }}/nginx.conf
+  notify: restart nginx
+  when: test_case == 'proxy'
+
+- name: Copy nginx configuration for https proxy test
+  template: src=conf/nginx.conf.https-proxy dest={{ nginx_conf_path }}/nginx.conf
+  notify: restart nginx
+  when: "test_case == 'https-proxy'"
+
+- name: Copy nginx configuration for webserver
+  template: src=conf/nginx.conf.webserver dest={{ nginx_conf_path }}/nginx.conf
+  notify: restart nginx
+  when: "test_case == 'webserver'"
+
+- name: Copy nginx index.html
+  template: src=index.html dest={{ http_root }}/index.html
+  notify: restart nginx

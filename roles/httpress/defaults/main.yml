@@ -1,0 +1,5 @@
+---
+# defaults file for httpress
+
+httpress_path: "{{ topdir }}/httpress"
+httpress_hg: https://bitbucket.org/yarosla/httpress/src

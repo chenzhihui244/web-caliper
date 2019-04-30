@@ -1,0 +1,13 @@
+---
+# defaults file for nginx
+
+#nginx_path: "{{ topdir }}/nginx"
+nginx_conf_path: /etc/nginx
+nginx_user: root
+nginx_worker_processes: auto
+nginx_pid_path: /run/nginx.pid
+nginx_worker_connections: 1024
+nginx_keepalive_timeout: 65
+http_port: 80
+http_root: /usr/share/nginx/html
+nginx_server_name: nginx_webserver

@@ -1,0 +1,11 @@
+---
+
+- hosts: webserver
+  remote_user: root
+  roles:
+      - nginx
+
+- hosts: webclient
+  remote_user: root
+  roles:
+      - httpress

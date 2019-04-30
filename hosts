@@ -1,0 +1,17 @@
+[all:vars]
+
+topdir=/home/webtest
+test_case=webserver
+
+threads=16
+connections=128
+requests=128000
+
+webserver_ip=192.168.1.134
+http_port=80
+
+[webserver]
+192.168.1.134
+
+[webclient]
+192.168.1.234

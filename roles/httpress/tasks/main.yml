@@ -1,0 +1,33 @@
+---
+# tasks file for httpress
+
+- name: ensure httpress path present
+  file:
+      state: directory
+      path: "{{ httpress_path }}"
+
+- name: install dependencies
+  yum:
+      state: present
+      name: ['gcc', 'gnutls-devel', 'libev-devel', 'git', 'mercurial']
+  when: ansible_distribution == "CentOS"
+
+- name: download httpress
+  hg:
+      repo: "{{ httpress_hg }}"
+      dest: "{{ httpress_path }}/httpress"
+      version: 1.1.0
+
+- name: build httpress
+  script: build-httpress.sh {{ httpress_path }}/httpress
+
+- name: disable firewall
+  service:
+      state: stopped
+      enabled: no
+      name: firewalld
+
+- name: copy test script
+  template:
+      src: httpress-test-webserver.sh
+      dest: "{{ httpress_path }}/httpress-test-webserver.sh"
