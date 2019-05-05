@@ -29,5 +29,8 @@
 
 - name: copy test script
   template:
-      src: httpress-test-webserver.sh
-      dest: "{{ httpress_path }}/httpress-test-webserver.sh"
+      src: "{{ item }}"
+      dest: "{{ httpress_path }}/{{ item }}"
+  with_items:
+      - httpress-test-webserver.sh
+      - httpress-test-https-webserver.sh

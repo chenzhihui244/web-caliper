@@ -3,10 +3,10 @@
 requests={{ requests }}
 connections={{ connections }}
 threads={{ threads }}
-target_url=http://{{ webserver_ip }}:{{ http_port }}
+target_url=https://{{ webserver_ip }}:{{ https_port }}
 outputdir={{ httpress_path }}/output
 datetime=`date +%Y%m%d-%H%M%S`
-log_file=httpress-webserver-${datetime}.txt
+log_file=httpress-https-webserver-${datetime}.txt
 
 mkdir -p ${outputdir}
 

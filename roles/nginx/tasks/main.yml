@@ -13,6 +13,9 @@
       name: ['nginx']
   when: ansible_distribution == "CentOS"
 
+- name: make ca
+  script: make-ca.sh "/" "{{ certificate }}"
+
 - name: start nginx
   service:
       state: started
@@ -28,6 +31,11 @@
   template: src=conf/nginx.conf.https-proxy dest={{ nginx_conf_path }}/nginx.conf
   notify: restart nginx
   when: "test_case == 'https-proxy'"
+
+- name: Copy nginx configuration for https webserver
+  template: src=conf/nginx.conf.https-webserver dest={{ nginx_conf_path }}/nginx.conf
+  notify: restart nginx
+  when: "test_case == 'https-webserver'"
 
 - name: Copy nginx configuration for webserver
   template: src=conf/nginx.conf.webserver dest={{ nginx_conf_path }}/nginx.conf

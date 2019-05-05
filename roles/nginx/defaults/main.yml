@@ -11,3 +11,5 @@ nginx_keepalive_timeout: 65
 http_port: 80
 http_root: /usr/share/nginx/html
 nginx_server_name: nginx_webserver
+
+certificate: web-cert

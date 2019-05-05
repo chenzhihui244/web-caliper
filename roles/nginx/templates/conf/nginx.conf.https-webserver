@@ -3,12 +3,15 @@ user  {{ nginx_user }};
 worker_processes  {{ nginx_worker_processes }};
 worker_cpu_affinity auto;
 
-error_log  logs/error.log;
+error_log  /dev/null;
 
 pid        {{ nginx_pid_path }};
 
 events {
     worker_connections  {{ nginx_worker_connections }};
+    multi_accept on;
+    #multi_accept off;
+    use epoll;
 }
 
 http {
@@ -21,22 +24,23 @@ http {
                       '"$http_user_agent" "$http_x_forwarded_for"'
 		  '"$ssl_client_s_dn" "$ssl_client_serial" "$ssl_client_verify"';
 
-    access_log  logs/access.log  main;
+    access_log  /dev/null;
 
     sendfile        on;
+    sendfile_max_chunk 512k;
     tcp_nopush     on;
+    tcp_nodelay     on;
 
     keepalive_timeout  {{ nginx_keepalive_timeout }};
 
     #gzip  on;
 
     server {
-	listen {{ https_port }} ssl;
+        listen {{ https_port }} ssl;
         server_name  {{ nginx_server_name }};
-        #listen       44301 ssl;
 
-	ssl_certificate {{ certificate }}.crt;
-	ssl_certificate_key {{ certificate }}.key;
+        ssl_certificate {{ certificate }}.crt;
+        ssl_certificate_key {{ certificate }}.key;
 
         #charset koi8-r;
 
